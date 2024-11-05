@@ -1,36 +1,38 @@
 #include <iostream>
 #include <deque>
-#include <windows.h>
 
 int main() {
-    SetConsoleOutputCP(CP_UTF8);
-    std::deque<int> myDeque;
     int n;
-    std::cout << "Введите количество элементов дека (должно быть кратно 4): ";
+    std::cout << "Введите количество элементов в деке (кратное 4): ";
     std::cin >> n;
-    // Заполнение дека
-    for (int i = 0; i < n; i++) {
-        int val;
-        std::cout << "Введите " << i + 1 << " элемент дека: ";
-        std::cin >> val;
-        myDeque.push_back(val);
+
+    // Проверка, что количество элементов кратно 4
+    if (n % 4 != 0) {
+        std::cerr << "Количество элементов должно быть кратно 4." << std::endl;
+        return 1;
     }
-    // Удаление элементов с четными порядковыми номерами
-    auto it = myDeque.begin();
-    for (int i = 0; i < n / 4; i++) {
-        it = myDeque.erase(it + i * 2);
+
+    std::deque<int> d;
+    std::cout << "Введите " << n << " элементов дека: ";
+    for (int i = 0; i < n; ++i) {
+        int value;
+        std::cin >> value;
+        d.push_back(value);
     }
-    // Вывод элементов дека
-    std::cout << "Элементы дека: ";
-    for (it = myDeque.begin(); it != myDeque.end(); ++it) {
-        std::cout << *it << " ";
+
+    // Удаление элементов с четными порядковыми номерами в первой половине дека
+    int half_size = n / 2;
+    for (int i = 0; i < half_size / 2; ++i) {
+        auto it = d.begin() + (2 * i + 1); // Четные номера (2, 4, ...) в первой половине
+        it = d.erase(it); // Удаляем элемент и обновляем итератор
+    }
+
+    // Вывод оставшихся элементов дека
+    std::cout << "Оставшиеся элементы дека: ";
+    for (const int& value : d) {
+        std::cout << value << " ";
     }
     std::cout << std::endl;
-    // Вывод элементов дека в обратном порядке
-    std::cout << "Элементы дека в обратном порядке: ";
-    for (auto rit = myDeque.rbegin(); rit != myDeque.rend(); ++rit) {
-        std::cout << *rit << " ";
-    }
-    std::cout << std::endl;
+
     return 0;
 }
