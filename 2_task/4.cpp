@@ -5,42 +5,52 @@
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
+    // Создаем вектор и список
     std::vector<int> V;
     std::list<int> L;
 
-    int num;
-    
-    // Ввод данных для вектора
-    std::cout << "Введите 6 элементов для вектора (целые числа): " << std::endl;
-    for (int i = 0; i < 6; ++i) {
-        std::cin >> num;
-        V.push_back(num);
+    // Заполнение вектора
+    std::cout << "Введите элементы для вектора (введите 'q' для завершения ввода):" << std::endl;
+    while (true) {
+        int value;
+        std::cin >> value;
+        V.push_back(value);
+        if (std::cin.peek() == '\n') break; // Завершение ввода по новой строке
     }
 
-    // Ввод данных для списка
-    std::cout << "Введите 7 элементов для списка (целые числа): " << std::endl;
-    for (int i = 0; i < 7; ++i) {
-        std::cin >> num;
-        L.push_back(num);
+    // Заполнение списка
+    std::cout << "Введите элементы для списка (введите 'q' для завершения ввода):" << std::endl;
+    while (true) {
+        int value;
+        std::cin >> value;
+        L.push_back(value);
+        if (std::cin.peek() == '\n') break; // Завершение ввода по новой строке
     }
 
-    // Убедимся, что вектор содержит как минимум 5 элементов
-    if (V.size() < 5) {
-        std::cerr << "Вектор должен содержать как минимум 5 элементов." << std::endl;
+    // Проверяем, достаточно ли элементов в списке
+    if (std::distance(L.begin(), L.end()) < 6) {
+        std::cout << "В списке должно быть не менее 6 элементов." << std::endl;
         return 1;
     }
 
-    // Найдем итератор на 5-й элемент списка
-    std::list<int>::iterator it = L.begin();
-    std::advance(it, 4); // Перемещаем итератор на 5-й элемент
+    // Находим итератор на 5-й элемент списка (отсчет с 0)
+    auto it = L.begin();
+    std::advance(it, 5); // Перемещаем итератор на 5-й элемент
 
-    // Вставка первых 5 элементов вектора в обратном порядке
+    // Вставляем первые 5 элементов вектора в обратном порядке
     L.insert(it, V.rbegin(), V.rbegin() + 5);
 
     // Вывод элементов списка
-    std::cout << "Элементы списка: ";
+    std::cout << "Элементы списка после вставки:" << std::endl;
     for (const auto& elem : L) {
         std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    // Вывод элементов списка в обратном порядке
+    std::cout << "Элементы списка в обратном порядке:" << std::endl;
+    for (auto i = L.rbegin(); i != L.rend(); ++i) {
+        std::cout << *i << " ";
     }
     std::cout << std::endl;
 
