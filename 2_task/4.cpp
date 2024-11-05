@@ -10,7 +10,7 @@ int main() {
     std::list<int> L;
 
     // Заполнение вектора
-    std::cout << "Введите элементы для вектора (введите 'q' для завершения ввода):" << std::endl;
+    std::cout << "Введите элементы для вектора:" << std::endl;
     while (true) {
         int value;
         std::cin >> value;
@@ -19,7 +19,7 @@ int main() {
     }
 
     // Заполнение списка
-    std::cout << "Введите элементы для списка (введите 'q' для завершения ввода):" << std::endl;
+    std::cout << "Введите элементы для списка:" << std::endl;
     while (true) {
         int value;
         std::cin >> value;
